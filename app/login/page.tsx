@@ -43,7 +43,7 @@ export default function LoginPage() {
       <header className="container mx-auto px-4 py-6 flex justify-between items-center">
         <Link href="/" className="flex items-center">
           <Shield className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-          <span className="ml-2 font-semibold">InsureTech</span>
+          <span className="ml-2 font-semibold">Insuredash</span>
         </Link>
         <ThemeToggle />
       </header>

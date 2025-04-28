@@ -72,6 +72,108 @@ export default function Home() {
         <TrackRecordSection />
         <TestimonialsSection />
       </main>
+
+      <footer className="bg-gray-100 dark:bg-gray-900 py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <Link
+                href="/dashboard"
+                className="flex items-center mb-4 md:mb-0 hover:text-red-600 dark:hover:text-red-500 transition-colors"
+              >
+                <Shield className="h-6 w-6 text-red-600 dark:text-red-500" />
+                <span className="ml-2 font-semibold">InsureDash</span>
+              </Link>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Providing comprehensive insurance solutions to protect what matters most to you.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-4">Products</h3>
+              <ul className="space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+                <li>
+                  <Link href="#" className="hover:text-red-600 dark:hover:text-red-500">
+                    Term Life Insurance
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="hover:text-red-600 dark:hover:text-red-500">
+                    Health Insurance
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="hover:text-red-600 dark:hover:text-red-500">
+                    Retirement Plans
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="hover:text-red-600 dark:hover:text-red-500">
+                    Child Plans
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-4">Company</h3>
+              <ul className="space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+                <li>
+                  <Link href="#about" className="hover:text-red-600 dark:hover:text-red-500">
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="hover:text-red-600 dark:hover:text-red-500">
+                    Careers
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/privacy-policy" className="hover:text-red-600 dark:hover:text-red-500">
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terms-of-service" className="hover:text-red-600 dark:hover:text-red-500">
+                    Terms of Service
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-4">Support</h3>
+              <ul className="space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+                <li>
+                  <Link href="/help-center" className="hover:text-red-600 dark:hover:text-red-500">
+                    Help Center
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/support" className="hover:text-red-600 dark:hover:text-red-500">
+                    Support
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact-us" className="hover:text-red-600 dark:hover:text-red-500">
+                    Contact Us
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="hover:text-red-600 dark:hover:text-red-500">
+                    File a Claim
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-gray-600 dark:text-gray-400 text-sm">
+            © {new Date().getFullYear()} InsureDash. All rights reserved. IRDAI Registration No. 111 | CIN:
+            L99999MH2000PLC129113
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
