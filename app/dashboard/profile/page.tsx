@@ -1,8 +1,8 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect } from "react"
+import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -11,35 +11,30 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Switch } from "@/components/ui/switch"
 
 export default function ProfilePage() {
+  const searchParams = useSearchParams()
   const [isEditing, setIsEditing] = useState(false)
   const [userProfile, setUserProfile] = useState({
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@example.com",
-    phone: "(555) 123-4567",
-    address: "123 Main St, Anytown, USA",
+    firstName: "Guest",
+    lastName: "User",
+    email: "guest@example.com",
+    phone: "+91 ",
+    address: "",
   })
 
   useEffect(() => {
-    // Try to get the user's name from localStorage
-    const storedName = localStorage.getItem("userName")
-    if (storedName) {
-      setUserProfile((prev) => ({
-        ...prev,
-        firstName: storedName,
-        // Generate a random last name based on first name
-        lastName: generateLastName(storedName),
-        // Generate a random email based on name
-        email: `${storedName.toLowerCase()}${Math.floor(Math.random() * 1000)}@example.com`,
-        // Generate a random phone number
-        phone: `(${Math.floor(Math.random() * 900) + 100}) ${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`,
-        // Generate a random address
-        address: `${Math.floor(Math.random() * 999) + 1} ${getRandomStreetName()}, ${getRandomCity()}`,
-      }))
-    }
-  }, [])
+    const userName = searchParams.get("userName") || localStorage.getItem("userName") || "Guest"
+    const userEmail = searchParams.get("userEmail") || localStorage.getItem("userEmail") || "guest@example.com"
 
-  // Helper function to generate a random last name
+    setUserProfile((prev) => ({
+      ...prev,
+      firstName: userName,
+      lastName: generateLastName(userName),
+      email: userEmail,
+      phone: "+91 ",
+      address: "",
+    }))
+  }, [searchParams])
+
   const generateLastName = (firstName: string): string => {
     const lastNames = [
       "Smith",
@@ -53,35 +48,34 @@ export default function ProfilePage() {
       "Rodriguez",
       "Wilson",
     ]
-    // Use the first character of the first name to deterministically select a last name
     const index = firstName.charCodeAt(0) % lastNames.length
     return lastNames[index]
   }
 
-  // Helper function to get a random street name
-  const getRandomStreetName = (): string => {
-    const streets = ["Main St", "Oak Ave", "Maple Rd", "Park Blvd", "Cedar Ln", "Pine St", "Elm Dr", "Washington Ave"]
-    return streets[Math.floor(Math.random() * streets.length)]
-  }
-
-  // Helper function to get a random city
-  const getRandomCity = (): string => {
-    const cities = ["Mumbai", "Delhi", "Bangalore", "Hyderabad", "Chennai", "Kolkata", "Pune", "Ahmedabad"]
-    return cities[Math.floor(Math.random() * cities.length)]
-  }
-
   const handleSaveChanges = () => {
-    // Save the updated profile
     localStorage.setItem("userName", userProfile.firstName)
+    localStorage.setItem("userEmail", userProfile.email)
     setIsEditing(false)
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target
-    setUserProfile((prev) => ({
-      ...prev,
-      [id]: value,
-    }))
+
+    if (id === "phone") {
+      let formatted = value
+      if (!formatted.startsWith("+91 ")) {
+        formatted = "+91 " + formatted.replace(/^\+91\s?/, "")
+      }
+      setUserProfile((prev) => ({
+        ...prev,
+        [id]: formatted,
+      }))
+    } else {
+      setUserProfile((prev) => ({
+        ...prev,
+        [id]: value,
+      }))
+    }
   }
 
   return (
@@ -143,11 +137,21 @@ export default function ProfilePage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone Number</Label>
-                <Input id="phone" value={userProfile.phone} onChange={handleInputChange} readOnly={!isEditing} />
+                <Input
+                  id="phone"
+                  value={userProfile.phone}
+                  onChange={handleInputChange}
+                  readOnly={!isEditing}
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="address">Address</Label>
-                <Input id="address" value={userProfile.address} onChange={handleInputChange} readOnly={!isEditing} />
+                <Input
+                  id="address"
+                  value={userProfile.address}
+                  onChange={handleInputChange}
+                  readOnly={!isEditing}
+                />
               </div>
             </CardContent>
             <CardFooter>

@@ -1,7 +1,7 @@
 // Create a new API route for ML recommendations
 import { NextResponse } from "next/server"
+import { getUserInsuranceData } from '@/lib/policies';
 
-// This would be a real API endpoint that calls your Python ML model
 export async function POST(request: Request) {
   try {
     const body = await request.json()
@@ -32,6 +32,28 @@ export async function POST(request: Request) {
     console.error("Error processing ML recommendation:", error)
     return NextResponse.json({ error: "Failed to process recommendation request" }, { status: 500 })
   }
+}
+
+export async function GET(request: Request) {
+  // Simulate user authentication (replace with actual auth logic)
+  const user = { id: 1, name: 'John Doe', email: 'john.doe@example.com' };
+
+  // Fetch user-specific insurance data
+  const userData = await getUserInsuranceData(user.id);
+
+  // Structure the response
+  const response = {
+    user: {
+      name: user.name,
+      email: user.email,
+    },
+    policies: userData.policies,
+    marketAverages: userData.marketAverages,
+    savings: userData.savings,
+    chartData: userData.chartData,
+  };
+
+  return NextResponse.json(response);
 }
 
 // Mock function to generate recommendations

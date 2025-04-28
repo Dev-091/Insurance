@@ -9,6 +9,12 @@ const config: Config = {
     "./src/**/*.{ts,tsx}",
     "*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    'animate-pulse-slow',
+    'bg-primary/5',
+    'bg-accent/5',
+    'blur-3xl',
+  ],
   theme: {
     container: {
       center: true,
@@ -27,6 +33,16 @@ const config: Config = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          50: "hsl(var(--primary) / 0.05)",
+          100: "hsl(var(--primary) / 0.1)",
+          200: "hsl(var(--primary) / 0.2)",
+          300: "hsl(var(--primary) / 0.3)",
+          400: "hsl(var(--primary) / 0.4)",
+          500: "hsl(var(--primary) / 0.5)",
+          600: "hsl(var(--primary) / 0.6)",
+          700: "hsl(var(--primary) / 0.7)",
+          800: "hsl(var(--primary) / 0.8)",
+          900: "hsl(var(--primary) / 0.9)",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -43,6 +59,16 @@ const config: Config = {
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
+          50: "hsl(var(--accent) / 0.05)",
+          100: "hsl(var(--accent) / 0.1)",
+          200: "hsl(var(--accent) / 0.2)",
+          300: "hsl(var(--accent) / 0.3)",
+          400: "hsl(var(--accent) / 0.4)",
+          500: "hsl(var(--accent) / 0.5)",
+          600: "hsl(var(--accent) / 0.6)",
+          700: "hsl(var(--accent) / 0.7)",
+          800: "hsl(var(--accent) / 0.8)",
+          900: "hsl(var(--accent) / 0.9)",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -60,6 +86,14 @@ const config: Config = {
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -75,10 +109,15 @@ const config: Config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "pulse-slow": {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "0.8" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-slow": "pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
     },
   },

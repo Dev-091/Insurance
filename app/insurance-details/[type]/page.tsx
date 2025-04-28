@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, use } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -9,14 +9,15 @@ import { Shield, Check, AlertCircle } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-export default function InsuranceDetailsPage({ params }: { params: { type: string } }) {
+export default function InsuranceDetailsPage({ params }: { params: { type: string } | Promise<{ type: string }> }) {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState("")
 
-  // Decode the insurance type from URL
-  const insuranceType = decodeURIComponent(params.type).toLowerCase()
+  // Unwrap params and decode the insurance type from URL
+  const unwrappedParams = use(params instanceof Promise ? params : Promise.resolve(params))
+  const insuranceType = decodeURIComponent(unwrappedParams.type).toLowerCase()
 
   // Insurance details based on type
   const insuranceDetails = {

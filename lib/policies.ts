@@ -52,4 +52,65 @@ export async function deletePolicy(policyId: string) {
     .eq('id', policyId)
 
   if (error) throw error
-} 
+}
+
+export async function getUserInsuranceData(userId: number) {
+  // Mock data for demonstration purposes
+  const policies = [
+    {
+      name: 'Health Shield Plan',
+      type: 'Health Insurance',
+      coverageAmount: 500000,
+      premiumMonthly: 1500,
+      premiumYearly: 18000,
+    },
+    {
+      name: 'Life Secure Plan',
+      type: 'Life Insurance',
+      coverageAmount: 10000000,
+      premiumMonthly: 2000,
+      premiumYearly: 24000,
+    },
+  ];
+
+  const marketAverages: Record<'Health Insurance' | 'Life Insurance', { monthly: number; yearly: number }> = {
+    'Health Insurance': { monthly: 2000, yearly: 24000 },
+    'Life Insurance': { monthly: 2500, yearly: 30000 },
+  };
+
+  const savings = policies.map((policy) => {
+    const marketAverage = marketAverages[policy.type as 'Health Insurance' | 'Life Insurance'];
+    return {
+      name: policy.name,
+      type: policy.type,
+      savedMonthly: marketAverage.monthly - policy.premiumMonthly,
+      savedYearly: marketAverage.yearly - policy.premiumYearly,
+    };
+  });
+
+  const totalYearlySavings = savings.reduce((sum, s) => sum + s.savedYearly, 0);
+
+  const chartData = {
+    barChart: policies.map((policy) => ({
+      name: policy.name,
+      userPremium: policy.premiumMonthly,
+      marketPremium: marketAverages[policy.type as 'Health Insurance' | 'Life Insurance'].monthly,
+    })),
+    pieChart: policies.map((policy) => ({
+      name: policy.name,
+      premium: policy.premiumMonthly,
+    })),
+    lineChart: savings.map((s) => ({
+      name: s.name,
+      savedYearly: s.savedYearly,
+    })),
+  };
+
+  return {
+    policies,
+    marketAverages,
+    savings,
+    totalYearlySavings,
+    chartData,
+  };
+}
