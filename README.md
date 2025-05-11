@@ -27,29 +27,6 @@ This project aims to:
 	•	📊 Interactive Dashboards with user-friendly charts
 	•	📨 Notifications for policy renewal and important updates
 
-📋 Setup Instructions
-	1.	Clone the repository:
-
-git clone https://github.com/your-username/sbi-life-insurance.git
-cd sbi-life-insurance
-
-
-	2.	Install dependencies:
-
-npm install
-
-
-	3.	Set up environment variables:
-Create a .env file and add your Supabase project keys:
-
-VITE_SUPABASE_URL=your-supabase-url
-VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
-
-
-	4.	Start the development server:
-
-npm run dev
-
 
 🧠 Future Enhancements
 	•	Add AI-powered risk analysis reports
